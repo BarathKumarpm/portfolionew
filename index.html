@@ -1,0 +1,281 @@
+// index.html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portfolio</title>
+    <link rel="stylesheet" href="./src/style.css">
+</head>
+<body>
+    <div id="loading">
+        <div class="loader"></div>
+        <p>Loading...</p>
+    </div>
+
+    <nav id="navbar">
+        <div class="logo">Portfolio</div>
+        <ul class="nav-links">
+            <li><a href="#introduction" class="nav-item active" data-section="introduction">Home</a></li>
+            <li><a href="#skills" class="nav-item" data-section="skills">Skills</a></li>
+            <li><a href="#experience" class="nav-item" data-section="experience">Experience</a></li>
+            <li><a href="#achievement" class="nav-item" data-section="achievement">Projects</a></li>
+            <li><a href="#education" class="nav-item" data-section="education">Education</a></li>
+            <li><a href="#connect" class="nav-item" data-section="connect">Connect</a></li>
+        </ul>
+        <div class="hamburger">
+            <div class="bar"></div>
+            <div class="bar"></div>
+            <div class="bar"></div>
+        </div>
+    </nav>
+
+    <div id="canvas-container"></div>
+    
+    <div id="dice-label">Roll the dice to navigate!</div>
+    <button id="roll-dice">Roll Dice</button>
+    
+    <div id="content-sections">
+        <section id="introduction" class="section active">
+            <div class="section-content">
+                <h1>Hello, I'm <span class="highlight">Barath Kumar P M</span></h1>
+                <h2>Software and AI Engineer</h2>
+                <p>Welcome to my portfolio. Roll the dice to navigate through different sections or use the navigation bar above.</p>
+                <div class="cta-buttons">
+                    <a href="mailto:pmbarathkumar18@gmail.com" class="cta-button primary">Contact Me</a>
+                    <a href="https://myresumeofficial.tiiny.site/" class="cta-button secondary">Download CV</a>
+                </div>
+            </div>
+        </section>
+
+        <section id="skills" class="section">
+            <div class="section-content">
+                <h2>Skills & Technologies</h2>
+                <div class="skills-container">
+                    <div class="skill-category">
+                        <h3>Software</h3>
+                        <div class="skill-item">
+                            <span class="skill-name">HTML5 & CSS3</span>
+                        </div>
+                        <div class="skill-item">
+                            <span class="skill-name">JavaScript</span>
+                        </div>
+                        <div class="skill-item">
+                          <span class="skill-name">Node Js</span>
+                        </div>
+                        <div class="skill-item">
+                            <span class="skill-name">React</span>
+                        </div>
+                        <div class="skill-item">
+                            <span class="skill-name">Three.js</span>
+                        </div>
+                    <div class="skill-item">
+                      <span class="skill-name">Flutter and Dart</span>
+                    </div>
+                    <div class="skill-item">
+                      <span class="skill-name">Python</span>
+                    </div>
+                  <div class="skill-item">
+                    <span class="skill-name">c & C++</span>
+                  </div>
+                  <div class="skill-item">
+                    <span class="skill-name">Java</span>
+                  </div>
+                </div>
+                    <div class="skill-category">
+                        <h3>Artificial Intelligence</h3>
+                        <div class="skill-item">
+                            <span class="skill-name">Tenserflow</span>
+                        </div>
+                        <div class="skill-item">
+                            <span class="skill-name">Pytorch</span>
+                        </div>
+                        <div class="skill-item">
+                            <span class="skill-name">Deep Learning</span>
+                        </div>
+                        <div class="skill-item">
+                          <span class="skill-name">LLMs (LLaMA, Mistral, Phi), LangChain, LlamaIndex</span>
+                        </div>
+                       <div class="skill-item">
+                         <span class="skill-name">Reinforcement Learning</span>
+                       </div>
+                    </div>
+                    
+                    <div class="skill-category">
+                        <h3>Other</h3>
+                        <div class="skill-item">
+                            <span class="skill-name">Git</span>
+                        </div>
+                        <div class="skill-item">
+                            <span class="skill-name">WebGL / Shaders</span>
+                        </div>
+                        <div class="skill-item">
+                            <span class="skill-name">Linux</span>
+                        </div>
+                        <div class="skill-item">
+                          <span class="skill-name">MySql</span>
+                        </div>
+                        <div class="skill-item">
+                          <span class="skill-name">AWS & GCP</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="experience" class="section">
+            <div class="section-content">
+                <h2>Work Experience</h2>
+                <div class="timeline">
+                    <div class="timeline-item">
+                        <div class="timeline-dot"></div>
+                        <div class="timeline-content">
+                            <h3>Cyber Security Analyst Intern</h3>
+                            <h4>National Informatics Center, Chennai</h4>
+                            <p class="timeline-date">Apr 2025 - Present</p>
+                            <p>Ethical hacking and penetration testing on in-house networks.
+                              Metasploit, exploits and port vulnerability analysis</p>
+                        </div>
+                    </div>
+                    
+                    <div class="timeline-item">
+                        <div class="timeline-dot"></div>
+                        <div class="timeline-content">
+                            <h3>Summer Research Intern</h3>
+                            <h4>National University of Singapore, Singapore</h4>
+                            <p class="timeline-date">Jun 2024 - Jul 2024</p>
+                            <p>Summer Research Intern in Big Data Analytics using Deep Learning. Hands on experience gained in Data Analytics using Machine Learning and statistics, Deep Learning, GAN and Gen AI
+                              Final project on Car Damage Analysis using Deep Learning models in MA-NET segmentation and Detectron2, 
+                              made a comparative analysis on both of these models where MA-NET segmentation achieved an overall accuracy of 81 percentage with custom neural networks under 60 epochs and Detectron2 model achieved a 92 percentage of accuracy on highlighting the damages.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="timeline-item">
+                        <div class="timeline-dot"></div>
+                        <div class="timeline-content">
+                            <h3>Data Science and Analytics Intern</h3>
+                            <h4>Computational Intelligence Research Foundation, Chennai</h4>
+                            <p class="timeline-date">Sep 2023 - Nov 2023</p>
+                            <p>Data Science and Analytics intern, at Computational Intelligence Research Foundation, Chennai.
+                              Created a research project, 'Analyzing Chess Player Rankings Unveiling Insights through Web Scraping', which had a compiled analytics of three months of chess ratings, presented the Research paper at ICONSDEEPCOM Conference at SRM Chennai on April 2024.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="achievement" class="section">
+            <div class="section-content">
+                <h2>Projects</h2>
+                <div class="achievements-container">
+                    <div class="achievement-card">
+                        <div class="achievement-icon">🚀</div>
+                        <h3>Multi-Agent Reinforcement Learning for Lunar Lander Coordination</h3>
+                        <p>Developed a MARL system using PPO, PettingZoo, and OpenAI Gym to enable multiple landers to coordinate descent and achieve collision-free soft landings.
+                        Designed a custom reward mechanism and real-time simulation using Pygame for synchronized agent behavior. The success rate of landing simulations were 80 percentage 
+                        for a multi agent simulation in parallel environment, with an average mean reward of 150 + 0.3 which crosses the difficulties of simulations using coordination based decentralization reward sharing system with a centralized individual reward bonus awarding system.</p>
+                    </div>
+                    
+                    <div class="achievement-card">
+                        <div class="achievement-icon">🧊</div>
+                        <h3>Rubik Cube Simulation using Three.js</h3>
+                        <p>Created an interactive 3D Rubik’s Cube simulator in Three.js with realistic rotations and intuitive user controls. it effectively simulates using multi dimensional threejs vectors and 
+                        resets immediately to its original state , using matrix mathematical laws</p>
+                    </div>
+                    
+                    <div class="achievement-card">
+                        <div class="achievement-icon">🛒</div>
+                        <h3>E-commerce Recommendation Explanation using LLMs </h3>
+                        <p>Built a Retrieval-Augmented Generation (RAG) system to explain personalized e-commerce recommendations using LLamaIndex and HuggingFace transformers.
+                        Leveraged Vector Store Indexing and HuggingFace Embeddings for document retrieval and integrated a Gradio-based interface for interactive product explanation generation. The non API based llm and cpu based training proved significant achievements for this project</p>
+                    </div>
+                    
+                    <div class="achievement-card">
+                        <div class="achievement-icon">📱</div>
+                        <h3>Social Media Post Encryption using Chaos Theory</h3>
+                        <p>Developed an encryption tool leveraging chaos mapping and Arnold transformation to enhance data security for text and image files.
+                          Applied principles of chaos theory and pixel rearrangement to protect sensitive information shared on social media platforms. The Encryption is further strengthed for less vulernabilities.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="education" class="section">
+            <div class="section-content">
+                <h2>Education</h2>
+                <div class="education-container">
+                    <div class="education-item">
+                        <div class="education-year">2021 - 2025</div>
+                        <div class="education-info">
+                            <h3>Bachelor of Technology in Computer Science and Engineering</h3>
+                            <h4>VIT University, Chennai</h4>
+                            <p>Specialized in Artificial Intelligence and Computer Graphics. Completed thesis on "Multi Agent Reinforcement Learning on Simulation Environment of Lunar Lander" as part of Capstone.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="connect" class="section">
+            <div class="section-content">
+                <h2>Let's Connect</h2>
+                <div class="connect-container">
+                    <div class="contact-form">
+                        <h3>Send Me a Message</h3>
+                        <form id="contact-form">
+                            <div class="form-group">
+                                <label for="name">Name</label>
+                                <input type="text" id="name" placeholder="Your Name" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="email">Email</label>
+                                <input type="email" id="email" placeholder="Your Email" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="message">Message</label>
+                                <textarea id="message" placeholder="Your Message" rows="5" required></textarea>
+                            </div>
+                            <button type="submit" class="submit-btn">Send Message</button>
+                        </form>
+                    </div>
+                    
+                    <div class="social-links">
+                        <h3>Find Me On</h3>
+                        <div class="social-icons">
+                          <a href="https://www.linkedin.com/in/p-m-barath-kumar-b2026a220/" class="social-icon" title="LinkedIn">
+                              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                  <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path>
+                                  <rect x="2" y="9" width="4" height="12"></rect>
+                                  <circle cx="4" cy="4" r="2"></circle>
+                              </svg>
+                          </a>
+                          <a href="https://github.com/BarathKumarpm" class="social-icon" title="GitHub">
+                              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                  <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path>
+                              </svg>
+                          </a>
+                          <a href="https://leetcode.com/u/Barath010/" class="social-icon" title="Leetcode">
+                              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 640 512" fill="none" stroke="currentColor" stroke-width="2">
+                                  <path d="M392.8 1.2c-17-4.9-34.7 5-39.6 22l-128 448c-4.9 17 5 34.7 22 39.6s34.7-5 39.6-22l128-448c4.9-17-5-34.7-22-39.6zm80.6 120.1c-12.5 12.5-12.5 32.8 0 45.3L562.7 256l-89.4 89.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0l112-112c12.5-12.5 12.5-32.8 0-45.3l-112-112c-12.5-12.5-32.8-12.5-45.3 0zm-306.7 0c-12.5-12.5-32.8-12.5-45.3 0l-112 112c-12.5 12.5-12.5 32.8 0 45.3l112 112c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L77.3 256l89.4-89.4c12.5-12.5 12.5-32.8 0-45.3z" fill="currentColor" stroke="none"/>
+                              </svg>
+                          </a>
+                          <a href="mailto:pmbarathkumar18@gmail.com" class="social-icon" title="Email">
+                              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                  <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
+                                  <polyline points="22,6 12,13 2,6"></polyline>
+                              </svg>
+                          </a>
+                      </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <footer>
+        <p>&copy; 2025 Barath Kumar P M - Portofolio</p>
+    </footer>
+    
+    <script type="module" src="./src/main.js"></script>
+</body>
+</html>
