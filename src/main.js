@@ -664,6 +664,200 @@ function setCustomCVUrl(url) {
   }
 }
 
+// Setup gradient effects for project grid
+function setupProjectGridEffects() {
+  // Add CSS for the gradient animation
+  const styleSheet = document.createElement('style');
+  styleSheet.id = 'gradient-hover-style';
+  styleSheet.textContent = `
+    @keyframes gradientBG {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+    
+    .project-card,
+    .achievement-card {
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      position: relative;
+      z-index: 1;
+      overflow: hidden;
+    }
+    
+    .project-card::before,
+    .achievement-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: linear-gradient(45deg, 
+        #ff6b6b, #6c63ff, #48dbfb, #1dd1a1, #feca57, #ff9ff3);
+      background-size: 300% 300%;
+      opacity: 0;
+      transition: opacity 0.3s ease;
+      z-index: -1;
+      border-radius: 15px;
+    }
+    
+    .project-card:hover::before,
+    .achievement-card:hover::before {
+      opacity: 1;
+      animation: gradientBG 3s ease infinite;
+    }
+    
+    .project-card:hover,
+    .achievement-card:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 15px 30px rgba(108, 99, 255, 0.2);
+    }
+    
+    .project-card:hover .project-card-content,
+    .achievement-card:hover .achievement-card-content {
+      background: rgba(255, 255, 255, 0.9);
+      border-radius: 15px;
+    }
+    
+    .project-card-content,
+    .achievement-card-content {
+      position: relative;
+      z-index: 2;
+      padding: 20px;
+      transition: background 0.3s ease;
+    }
+  `;
+  document.head.appendChild(styleSheet);
+  
+  // Create project grid if it doesn't exist
+  createProjectGridIfNeeded();
+  
+  console.log("Project grid hover effects initialized");
+}
+
+// Create project grid if needed
+function createProjectGridIfNeeded() {
+  // Check if a project section exists, if not create it
+  if (!document.getElementById('projects')) {
+    // Create project section element
+    const projectSection = document.createElement('section');
+    projectSection.id = 'projects';
+    projectSection.className = 'section';
+    
+    // Find a suitable container for the section
+    const contentSections = document.getElementById('content-sections') || document.body;
+    contentSections.appendChild(projectSection);
+    
+    // Add to sections array if it exists
+    if (typeof sections !== 'undefined') {
+      sections.push('projects');
+    }
+    
+    // Add CSS for project grid
+    const projectGridStyle = document.createElement('style');
+    projectGridStyle.id = 'project-grid-style';
+    projectGridStyle.textContent = `
+      .projects-container {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+        gap: 2rem;
+        margin-top: 2rem;
+      }
+      
+      .project-card {
+        background-color: var(--white);
+        border-radius: 15px;
+        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.05);
+        overflow: hidden;
+      }
+      
+      .project-tech {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.5rem;
+        margin-top: 1rem;
+      }
+      
+      .project-tech span {
+        background-color: rgba(108, 99, 255, 0.1);
+        color: var(--primary-color);
+        padding: 5px 10px;
+        border-radius: 20px;
+        font-size: 0.8rem;
+        font-weight: 500;
+      }
+    `;
+    document.head.appendChild(projectGridStyle);
+  }
+}
+
+// Add a function to show a message when the roll dice button is visible
+function setupRollDiceMessage() {
+  const rollDiceBtn = document.getElementById('roll-dice');
+  if (!rollDiceBtn) return;
+  
+  // Create a tooltip element
+  const tooltip = document.createElement('div');
+  tooltip.id = 'roll-dice-tooltip';
+  tooltip.textContent = 'Roll the dice to navigate!';
+  tooltip.style.cssText = `
+    position: fixed;
+    bottom: 110px;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: rgba(0, 0, 0, 0.7);
+    color: white;
+    padding: 8px 16px;
+    border-radius: 20px;
+    font-size: 0.9rem;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    pointer-events: none;
+    z-index: 100;
+  `;
+  document.body.appendChild(tooltip);
+  
+  // Show tooltip when dice is idle for a few seconds
+  let tooltipTimeout;
+  
+  function showTooltip() {
+    if (!isRolling) {
+      tooltip.style.opacity = '1';
+      
+      // Hide after a few seconds
+      setTimeout(() => {
+        tooltip.style.opacity = '0';
+      }, 1500);
+    }
+  }
+  
+  // Show tooltip every 15 seconds if dice is visible and not rolling
+  setInterval(() => {
+    const diceVisible = window.getComputedStyle(canvas).display !== 'none';
+    if (diceVisible && !isRolling) {
+      showTooltip();
+    }
+  }, 4000);
+  
+  // Also show when mouse hovers near the dice
+  canvas.addEventListener('mousemove', () => {
+    clearTimeout(tooltipTimeout);
+    tooltipTimeout = setTimeout(showTooltip, 1000);
+  });
+  
+  // Hide when dice starts rolling
+  const originalRollDice = window.rollDice || function() {};
+  window.rollDice = function() {
+    tooltip.style.opacity = '0';
+    originalRollDice.apply(this, arguments);
+  };
+}
+
+// Setup the roll dice message after DOM is loaded
+document.addEventListener('DOMContentLoaded', () => {
+  setupRollDiceMessage();
+});
+
 // Animation loop
 function animate() {
   requestAnimationFrame(animate);
