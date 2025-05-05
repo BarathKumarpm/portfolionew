@@ -263,6 +263,7 @@ function init() {
 
 // Create the dice with rounded edges and dot markings
 // Find and update the dice material section in createDice() function
+// Create the dice with rounded edges and dot markings
 function createDice() {
   // Create a group for the dice
   dice = new THREE.Group();
@@ -378,48 +379,107 @@ function createDice() {
 
 // Create the dots for each face of the dice
 function createDiceDots() {
-  dotGeometry = new THREE.CircleGeometry(0.07, 32);
-  dotMaterial = new THREE.MeshBasicMaterial({ color: 0x000000 }); // Black dots
+  // Using smaller radius for dots
+  dotGeometry = new THREE.SphereGeometry(0.05, 16, 16);
+  const dotMaterialBlack = new THREE.MeshStandardMaterial({ 
+    color: 0x000000,
+    roughness: 0.3,
+    metalness: 0.2
+  }); // Black dots
+  
+  const dotMaterialRed = new THREE.MeshStandardMaterial({ 
+    color: 0xff0000,
+    roughness: 0.3,
+    metalness: 0.2
+  }); // Red dots
+  
+  // Face positioning values - distance from center to face
+  const faceOffset = 0.475; // Slightly less than half width to account for rounded edges
   
   // Face 1: Single dot (center) [+Z face]
-  addDot(0, 0, 0.501, 0, 0, 0);
+  addDotOnSurface(0, 0, faceOffset, dotMaterialRed);
   
   // Face 2: Two dots [+X face]
-  addDot(0.501, 0.25, 0, Math.PI / 2, 0, 0);
-  addDot(0.501, -0.25, 0, Math.PI / 2, 0, 0);
+  addDotOnSurface(faceOffset, 0.25, 0, dotMaterialBlack);
+  addDotOnSurface(faceOffset, -0.25, 0, dotMaterialRed);
   
   // Face 3: Three dots [-Z face]
-  addDot(0, 0.25, -0.501, 0, Math.PI, 0);
-  addDot(0, 0, -0.501, 0, Math.PI, 0);
-  addDot(0, -0.25, -0.501, 0, Math.PI, 0);
+  addDotOnSurface(0, 0.25, -faceOffset, dotMaterialBlack);
+  addDotOnSurface(0, 0, -faceOffset, dotMaterialRed);
+  addDotOnSurface(0, -0.25, -faceOffset, dotMaterialBlack);
   
   // Face 4: Four dots [-X face]
-  addDot(-0.501, 0.25, 0.25, -Math.PI / 2, 0, 0);
-  addDot(-0.501, 0.25, -0.25, -Math.PI / 2, 0, 0);
-  addDot(-0.501, -0.25, 0.25, -Math.PI / 2, 0, 0);
-  addDot(-0.501, -0.25, -0.25, -Math.PI / 2, 0, 0);
+  addDotOnSurface(-faceOffset, 0.25, 0.25, dotMaterialRed);
+  addDotOnSurface(-faceOffset, 0.25, -0.25, dotMaterialBlack);
+  addDotOnSurface(-faceOffset, -0.25, 0.25, dotMaterialBlack);
+  addDotOnSurface(-faceOffset, -0.25, -0.25, dotMaterialRed);
   
   // Face 5: Five dots [+Y face]
-  addDot(0, 0.501, 0, 0, 0, -Math.PI / 2);
-  addDot(0.25, 0.501, 0.25, 0, 0, -Math.PI / 2);
-  addDot(0.25, 0.501, -0.25, 0, 0, -Math.PI / 2);
-  addDot(-0.25, 0.501, 0.25, 0, 0, -Math.PI / 2);
-  addDot(-0.25, 0.501, -0.25, 0, 0, -Math.PI / 2);
+  addDotOnSurface(0, faceOffset, 0, dotMaterialRed);
+  addDotOnSurface(0.25, faceOffset, 0.25, dotMaterialBlack);
+  addDotOnSurface(0.25, faceOffset, -0.25, dotMaterialRed);
+  addDotOnSurface(-0.25, faceOffset, 0.25, dotMaterialBlack);
+  addDotOnSurface(-0.25, faceOffset, -0.25, dotMaterialRed);
   
   // Face 6: Six dots [-Y face]
-  addDot(0.25, -0.501, 0.25, 0, 0, Math.PI / 2);
-  addDot(0.25, -0.501, 0, 0, 0, Math.PI / 2);
-  addDot(0.25, -0.501, -0.25, 0, 0, Math.PI / 2);
-  addDot(-0.25, -0.501, 0.25, 0, 0, Math.PI / 2);
-  addDot(-0.25, -0.501, 0, 0, 0, Math.PI / 2);
-  addDot(-0.25, -0.501, -0.25, 0, 0, Math.PI / 2);
+  addDotOnSurface(0.25, -faceOffset, 0.25, dotMaterialBlack);
+  addDotOnSurface(0.25, -faceOffset, 0, dotMaterialRed);
+  addDotOnSurface(0.25, -faceOffset, -0.25, dotMaterialBlack);
+  addDotOnSurface(-0.25, -faceOffset, 0.25, dotMaterialRed);
+  addDotOnSurface(-0.25, -faceOffset, 0, dotMaterialBlack);
+  addDotOnSurface(-0.25, -faceOffset, -0.25, dotMaterialRed);
 }
 
-// Add a dot to the dice
-function addDot(x, y, z, rotX, rotY, rotZ) {
-  const dot = new THREE.Mesh(dotGeometry, dotMaterial);
-  dot.position.set(x, y, z);
-  dot.rotation.set(rotX, rotY, rotZ);
+// Add a dot that conforms to the curved surface of the dice
+function addDotOnSurface(x, y, z, material) {
+  // Create the dot
+  const dot = new THREE.Mesh(dotGeometry, material);
+  
+  // Find direction from center to position
+  const direction = new THREE.Vector3(x, y, z).normalize();
+  
+  // Calculate position on the rounded surface
+  const cubeSize = 0.95; // Must match the dice size
+  const cornerRadius = 0.15; // Must match the corner radius used for the dice
+  
+  // Determine which components are at the edges
+  const absX = Math.abs(x);
+  const absY = Math.abs(y);
+  const absZ = Math.abs(z);
+  const maxComponent = Math.max(absX, absY, absZ);
+  
+  // Base position - this is where the dot would be on a perfect cube
+  const basePosition = new THREE.Vector3(x, y, z);
+  
+  // Adjust for rounded corners if near an edge or corner
+  if (maxComponent > (cubeSize / 2) - cornerRadius) {
+    // Edge distance
+    const edge = (cubeSize / 2) - cornerRadius;
+    
+    // Calculate how much we need to move the point inward
+    const scale = edge / maxComponent;
+    
+    // Move point inward
+    const adjustedPos = new THREE.Vector3(
+      x * scale,
+      y * scale,
+      z * scale
+    );
+    
+    // Add the corner radius in the direction from center
+    const cornerOffset = direction.clone().multiplyScalar(cornerRadius);
+    basePosition.copy(adjustedPos).add(cornerOffset);
+  }
+  
+  // Set the dot position
+  dot.position.copy(basePosition);
+  
+  // Orient the dot to look outward from center
+  dot.lookAt(dot.position.clone().add(direction));
+  
+  // Add a small offset to prevent z-fighting
+  dot.position.add(direction.clone().multiplyScalar(0.002));
+  
   dice.add(dot);
 }
 
